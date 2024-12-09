@@ -9,3 +9,4 @@ Currently, two official plugins are available:
 "# e-commerece-web" 
 "# e-commerece-web" 
 "# E-Commerece-Web" 
+"# E-Commerece-Web" 
