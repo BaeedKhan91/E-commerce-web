@@ -1,12 +1,56 @@
-import React, { useContext, useState,  } from 'react'
+import React, { useContext, useState,useEffect } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/frontend_assets/assets'
+import ProductItem from '../components/ProductItem'
 import Title from '../components/Title'
 
 function Collection() {
   const {products} = useContext(ShopContext)
   const [showFilter,setShowFilter]=useState(false)
+  const [filterProducts,setFilterProducts]=useState([])
+  const [categorey,setCategorey] =useState([])
+  const [subCategory,setSubCategorey]=useState([])
 
+  const toggleCategory=(e)=>{
+    if(categorey.includes(e.target.value)){
+      setCategorey(prev=>prev.filter(item=> item !== e.target.value))
+    }
+    else{
+      setCategorey(prev=>[...prev,e.target.value])
+    }
+  }
+
+const toggleSubCategory=(e)=>{
+  if(subCategory.includes(e.target.value)){
+    setSubCategorey(prev=>prev.filter(item=> item !== e.target.value))
+  }
+  else{
+    setSubCategorey(prev=>[...prev,e.target.value])
+  }
+}
+
+  const applyFilter=()=>{
+    let productsCopy = products.slice();
+
+    if(categorey.length > 0){
+       productsCopy=productsCopy.filter(item=> categorey.includes(item.category))
+
+    }
+    if(subCategory.length > 0){
+      productsCopy=productsCopy.filter(item=> subCategory.includes(item.subCategory))
+      }
+
+    setFilterProducts(productsCopy)
+  }
+
+
+    useEffect(()=>{
+      setFilterProducts(products)
+    },[])
+
+    useEffect(()=>{
+      applyFilter()
+    },[categorey,subCategory])
 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 border-t'>
@@ -20,13 +64,13 @@ function Collection() {
           <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'> 
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={''} />Men
+              <input type="checkbox" className='w-3' value={'Men'} onChange={toggleCategory} />Men
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Women'} />Women
+              <input type="checkbox" className='w-3' value={'Women'} onChange={toggleCategory} />Women
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Kids'} />Kids
+              <input type="checkbox" className='w-3' value={'Kids'} onChange={toggleCategory} />Kids
             </p>
           </div>
         </div>
@@ -36,13 +80,13 @@ function Collection() {
           <p className='mb-3 text-sm font-medium'>TYPE</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'> 
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Topwear'} />Topwear
+              <input type="checkbox" className='w-3' value={'Topwear'} onChange={toggleSubCategory} />Topwear
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Bottomwear'} />Bottomwear
+              <input type="checkbox" className='w-3' value={'Bottomwear'} onChange={toggleSubCategory} />Bottomwear
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Winterwear'} />Winterwear
+              <input type="checkbox" className='w-3' value={'Winterwear'} onChange={toggleSubCategory} />Winterwear
             </p>
           </div>
         </div>
@@ -61,7 +105,14 @@ function Collection() {
         </div>
         {/* Map products */}
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
-
+          {
+            filterProducts.map((item,index)=>(
+              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} />
+            ))
+          //   .map((item,index)=>(
+          //     <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price}/>
+          // ))
+          }
         </div>
       </div>
     </div>
