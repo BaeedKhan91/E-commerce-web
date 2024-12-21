@@ -17,13 +17,15 @@ function CartTotal() {
             </div>
             <hr />
             <div className='flex justify-between'>
-                <p>Shipping Fee</p>
+                <p>Delivery Fee</p>
                 <p>{currency} {deliver_fee}.00</p>
             </div>
             <hr />
             <div className='flex justify-between'>
                 <b>Total</b>
-                <b>{currency} {getCartAmount()===0 ? 0 : getCartAmount()+ deliver_fee}.00</b>
+                <b>{currency} {getCartAmount() === 0 ? 0 : parseInt(getCartAmount() + deliver_fee)}.00</b>
+                
+                
             </div>
         </div>
     </div>
