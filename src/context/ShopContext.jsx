@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/frontend_assets/assets";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props)=>{
@@ -15,7 +16,7 @@ const ShopContextProvider = (props)=>{
     const addToCart =async (itemId,size) => {
 
         if(!size){
-            alert('please select size')
+            message.warning('please select size')
             return;
         }
 
