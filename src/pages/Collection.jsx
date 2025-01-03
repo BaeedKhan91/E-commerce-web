@@ -72,7 +72,7 @@ const toggleSubCategory=(e)=>{
 
     useEffect(()=>{
       applyFilter()
-    },[categorey,subCategory,search,showSearch])
+    },[categorey,subCategory,search,showSearch,products])
 
     useEffect(()=>{
       sortProduct();

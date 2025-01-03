@@ -156,6 +156,7 @@ export const products = [
         date: 1716622345448,
         bestseller: true
     },
+    //A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.
     {
         _id: "aaaaf",
         name: "Girls Round Neck Cotton Top",
@@ -408,6 +409,7 @@ export const products = [
         date: 1716639845448,
         bestseller: false
     },
+    //here aaaaz
     {
         _id: "aaaba",
         name: "Girls Round Neck Cotton Top",
